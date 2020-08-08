@@ -1,0 +1,54 @@
+# https://github.com/psmitt/metalanguage/blob/master/examples/ScopeList.ScopeList
+# https://www.apeth.com/nonblog/stories/textmatebundle.html
+# https://rubular.com/
+# https://github.com/stedolan/jq/wiki/Docs-for-Oniguruma-Regular-Expressions-(RE.txt)
+
+# comment.line.double-dash.beach
+# constant.character.escape.backlash.python
+# constant.number.beach
+# constant.language.empty.beach _
+# constant.language.boolean.false.coffee
+# entity.name.type
+# entity.other.inherited-class
+# invalid.illegal
+# keyword.control
+# keyword.operator
+# storage.type
+# string.quoted.single
+# variable.parameter
+
+name: Beach
+scopeName: source.beach
+patterns:
+    -
+        name: comment.line.double-dash.beach
+        match: --.*
+    -
+        match: ^(\| )*(define)(.+?)(?= as|$)
+        captures:
+            1:
+                name: punctuation.indentation.beach
+            2:
+                name: keyword.type.beach
+            3:
+                patterns:
+                    -
+                        name: entity.name.type.beach
+                        match: \p{Alpha}[^\s\(\)]*
+    -
+        match: (as type)(.+?)$
+        captures:
+            1:
+                name: keyword.type.beach
+            2:
+                patterns:
+                    -
+                        name: entity.name.type.beach
+                        match: \p{Alpha}[^\s\(\)]*
+                        
+
+repository:
+    strings:
+        name: string.quoted.double.beach
+        begin: '"'
+        end: '"'

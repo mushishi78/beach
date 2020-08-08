@@ -1,0 +1,40 @@
+{
+    "name": "beach-vscode",
+    "displayName": "beach-vscode",
+    "description": "Language support for Beach",
+    "version": "0.0.1",
+    "engines": {
+        "vscode": "^1.47.0"
+    },
+    "categories": [
+        "Programming Languages"
+    ],
+    "contributes": {
+        "languages": [
+            {
+                "id": "beach",
+                "aliases": [
+                    "Beach",
+                    "beach"
+                ],
+                "extensions": [
+                    "beach"
+                ],
+                "configuration": "./language-configuration.json"
+            }
+        ],
+        "grammars": [
+            {
+                "language": "beach",
+                "scopeName": "source.beach",
+                "path": "./beach.tmLanguage.json"
+            }
+        ]
+    },
+    "devDependencies": {
+        "js-yaml": "^3.14.0"
+    },
+    "scripts": {
+        "build": "js-yaml beach.tmLanguage.yaml > beach.tmLanguage.json"
+    }
+}
