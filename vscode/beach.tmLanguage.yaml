@@ -23,32 +23,40 @@ patterns:
     -
         name: comment.line.double-dash.beach
         match: --.*
+    
     -
-        match: ^(\| )*(define)(.+?)(?= as|$)
-        captures:
-            1:
-                name: punctuation.indentation.beach
-            2:
-                name: keyword.type.beach
-            3:
-                patterns:
-                    -
-                        name: entity.name.type.beach
-                        match: \p{Alpha}[^\s\(\)]*
-    -
-        match: (as type)(.+?)$
-        captures:
-            1:
-                name: keyword.type.beach
-            2:
-                patterns:
-                    -
-                        name: entity.name.type.beach
-                        match: \p{Alpha}[^\s\(\)]*
-                        
+        name: string.quoted.single
+        match: \`.*
 
-repository:
-    strings:
-        name: string.quoted.double.beach
-        begin: '"'
-        end: '"'
+    -
+        name: keyword.type.beach
+        match: define|as|type|generic|either
+
+    -
+        name: keyword.control.beach
+        match: mapping|map|return|binding|if|let|be
+
+    -
+        name: constant.language.empty.beach
+        match: _
+
+    -
+        name: constant.language.unknown.variadic.beach
+        match: \*\*
+
+    -
+        name: constant.language.unknown.beach
+        match: \*
+
+    -
+        name: keyword.operator.pipe.beach
+        match: \>\>
+
+    -
+        name: keyword.operator.pipe.conditional.beach
+        match: \?\?
+
+    -
+        name: variable.beach
+        match: \p{Alpha}[^\s\(\)]*
+                        

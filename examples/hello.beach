@@ -1,7 +1,12 @@
 -- This is a comment
-define foo bar as type array(foo how are you)
-define a as generic
-define array(a) as higher order generic
+define foo bar as type array(foo)
+define a(*) array(*) object(**) as generic
 define thing as either foo bar
 
-` Hello
+` Hello how are you
+
+
+let a be foo >> bar
+
+
+map a >> b ?? foo
