@@ -1,0 +1,3 @@
+define true false as _
+define boolean as either true false
+

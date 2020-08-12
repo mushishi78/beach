@@ -1,0 +1,2 @@
+define isLessThan isGreaterThan isLessThanOrEqual isGreaterThanOrEqual as type boolean
+

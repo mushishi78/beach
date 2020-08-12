@@ -1,0 +1,4 @@
+assuming a >> m(a)
+assuming m(b) m(b >> m(c)) >> m(c)
+
+

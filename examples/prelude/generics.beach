@@ -1,0 +1,27 @@
+define a b c d e as generic
+define a' b' c' d' e' as generic
+
+define a1 a2 a3 a4 a5 a6 a7 as type a
+define b1 b2 b3 b4 b5 b6 b7 as type b
+define c1 c2 c3 c4 c5 c6 c7 as type c
+define d1 d2 d3 d4 d5 d6 d7 as type d
+define e1 e2 e3 e4 e5 e6 e7 as type e
+
+define a|b as either a b
+define a|c as either a c
+define a|d as either a d
+define b|c as either b c
+define b|d as either b d
+define c|d as either c d
+define a|b|c as either a b c
+define a|b|d as either a b d
+define b|c|d as either b c d
+define a|b|c|d as either a b c d
+
+define a? as either a _
+define b? as either b _
+define c? as either c _
+define d? as either d _
+define e? as either e _
+
+define m(a) n(a) as higher kinded generic

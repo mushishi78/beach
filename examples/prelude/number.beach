@@ -1,0 +1,12 @@
+define n as type number
+define isPostive isZero isNegative as type boolean
+
+mapping number >> isPostive
+| return number 0 >> isGreaterThan >> boolean >> isZero
+
+mapping number >> isZero
+| return number 0 >> isEqual >> boolean >> isZero
+
+mapping number >> isNegative
+| return number 0 >> isLessThan >> boolean >> isZero
+

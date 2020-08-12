@@ -1,0 +1,19 @@
+assuming a a >> a
+
+mapping a? a? >> a?
+| return a? a? ?? a a >> a
+| return a? a? ?? a _ >> a
+| return a? a? ?? _ a >> a
+| return a? a? ?? _ _ >> _
+
+mapping a? a >> a?
+| return a? a >> a? a? >> a?
+
+mapping a a? >> a?
+| return a? a >> a?
+
+mapping a number >> a?
+| return number >> isPositive ?? false >> _
+| define a' as type a
+| let a' be number >> decrement >> number >> $a number >> a
+| return a a' >> a a >> a

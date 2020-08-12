@@ -1,0 +1,128 @@
+define endOfSection nextStep nothing as type _
+define id as type number
+define uuid photoFileName as type string
+define answerId stepId elementId reportId as type uuid
+define titleAssigningElement as type elementId
+define reportStartDate as type date
+define conditionalRoutes as type list(conditionalRoute)
+define elements as type list(element)
+define steps as type list(step)
+define answers allAnswers as type list(answer)
+define choiceId as either uuid id
+define defaultRoute as either stepId endOfSection nextStep
+define flow as type { elementId steps titleAssigningElement }
+define section as type { elementId steps }
+define step as type { stepId label elements defaultRoute conditionalRoutes }
+
+map reportStartDate <-> date
+map conditionalRoutes <-> list(conditionalRoute)
+map elements <-> list(element)
+map steps <-> list(step)
+map answers <-> allAnswers <-> list(answer)
+
+entry main : section >> getFlowSummaryArgs
+
+map flow >> { titleAssigningElement ... } >> { ... } >> section
+map flow allAnswers reportStartDate >> section " " >> summary
+
+define true false as type _
+define isPositive as either true false
+define factorial postiveNumber as type number
+define postiveNumber? as either postiveNumber _
+
+map number >> number '>' 0 >> boolean >> isPositive
+
+mapping number >> factorial
+| return number >> isPositive ?? false >> _ >> 1
+| return number '-' 1 >> number >> factorial $number >> number '*' number >> number >> factorial
+
+
+define n? as either n _
+define string? as either string _
+define a? as either a _
+define b? as either b _
+
+assuming a >> b
+| mapping maybe(a) >> maybe(b)
+| | return maybe(a) ?? a >> b >> maybe(b)
+| | return _
+
+mapping n? >> string?
+| map n >> number >> string
+| return n? >> maybe(a) >> maybe(b) >> string?
+
+mapping n? >> string?
+| return n? ?? n >> string >> string?
+| return _
+
+
+define GET POST as type _
+define url body errorMessage json as type string
+define body? as either body _
+define httpStatusCode as number
+define httpResponseSuccess as type { httpStatusCode body? }
+define httpResponseFailure as type { httpStatusCode body? }
+define httpResponse as either httpResponseSuccess httpResponseFailure
+define user? as either user errorMessage
+
+binding GET url >> async(httpResponse)
+{
+    // Some js code
+}
+
+binding POST url body >> async(httpResponse)
+{
+    // Some js code
+}
+
+assuming httpResponseSuccess >> a
+assuming httpResponseFailure >> a
+| mapping httpResponse >> a
+| | return httpResponse ?? httpResponseSuccess >> a
+| | return httpResponse ?? httpResponseFailure >> a
+
+mapping body? >> user?
+| return body? ?? _ >> errorMessage(`No body to parse`) >> user?
+| return body? ?? body >> json >> result(user string) >> result(user errorMessage) >> user?
+
+maping userId >> async(user?)
+| map httpResponseSuccess >> { body? } >> body? >> user?
+| map httpResponseFailure >> _ >> errorMessage(`Unexpected server error`) >> user?
+| return GET string(`/getUser/$$userId`) >> async(httpResponse) >> async(user?)
+
+
+define userWithName as type user
+define foldable as higher order generic
+
+map userName userName >> a1 a2 >> isEqual
+
+mapping user userName >> hasName
+| return user.userName userName >> isEqual >> boolean >> hasName
+
+mapping users userName .first >> userWithName?
+| map user >> user $userName >> hasName >> boolean
+| return users >> foldable(user).firstWhereTrue >> maybe(user) >> userWithName?
+
+
+
+-- FFI
+binding a >> list(a)
+{
+    return [a];
+}
+
+-- Multiline string
+let msg : string(`
+    ` This is a multiline string.
+    ` It uses a dash to mark where the start of each line will be.
+    ` So indentation is much easier
+    ` Can escape with backslash: \` \\ \$$
+    ` Interpollate variables with dollars $$userName $$companyRole
+    `)
+
+-- Multiline number
+let num : number(#
+    # j = 5n + 5
+    # w = 23 / j
+    # 13 * 5w
+    #)

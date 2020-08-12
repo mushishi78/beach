@@ -1,0 +1,10 @@
+assuming a >> m(a)
+assuming m(b) m(c) m(b c >> d) >> m(d)
+
+mapping m(b) m(c) >> m(b)
+| return m(b) m(c) m(b c >> b _ >> b) >> m(b)
+
+mapping m(b) m(c) >> m(c)
+| return m(c) m(b) >> m(b)
+
+
