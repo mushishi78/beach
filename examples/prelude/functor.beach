@@ -1,10 +1,4 @@
 assuming m(a) (a >> b) >> m(b)
-
-mapping m(a) b >> m(b)
-| return m(a) \(a >> _ >> $b) >> m(b)
-
-mapping b m(a) >> m(b)
-| return m(b) b >> m(b)
-
-mapping m(a) >> m(_)
-| return m(a) >> m(a >> _) >> m(_)
+map m(a) b >> m(a) \(a >> _ >> $b) >> m(b)
+map b m(a) >> m(a) b >> m(b)
+map m(a) >> m(a) \(a >> _) >> m(_)
